@@ -1,9 +1,10 @@
 import streamlit as st
+import base64
 
 
-# ======================================
+# =====================================
 # PAGE CONFIGURATION
-# ======================================
+# =====================================
 
 st.set_page_config(
     page_title="Afficionado Coffee Roasters",
@@ -13,138 +14,159 @@ st.set_page_config(
 )
 
 
-# ======================================
-# CUSTOM CSS STYLING
-# ======================================
+# =====================================
+# LOAD IMAGE FUNCTION
+# =====================================
 
-st.markdown("""
+def get_base64(image_path):
+    with open(image_path, "rb") as img:
+        return base64.b64encode(img.read()).decode()
+
+
+banner = get_base64("images/coffee_banner.jpg")
+
+
+# =====================================
+# CUSTOM CSS
+# =====================================
+
+st.markdown(f"""
 <style>
 
-/* Main Background */
-.stApp {
-    background: linear-gradient(to right, #1B120D, #2B1D17);
+/* Main App Background */
+.stApp {{
+    background: linear-gradient(to right, #140F0C, #2A1B14);
     color: #F5F5F5;
-}
+}}
 
 
-/* Sidebar Styling */
-section[data-testid="stSidebar"] {
-    background-color: #140F0C;
+/* Sidebar */
+section[data-testid="stSidebar"] {{
+    background-color: #120D0A;
     border-right: 1px solid #3E2C23;
-}
+}}
 
 
 /* Sidebar Text */
-section[data-testid="stSidebar"] * {
-    color: #F5F5F5 !important;
-}
+section[data-testid="stSidebar"] * {{
+    color: white !important;
+}}
+
+
+/* Hero Banner */
+.hero-section {{
+    background-image:
+        linear-gradient(
+            rgba(0,0,0,0.65),
+            rgba(0,0,0,0.65)
+        ),
+        url("data:image/jpg;base64,{banner}");
+
+    background-size: cover;
+    background-position: center;
+    padding: 90px 50px;
+    border-radius: 25px;
+    text-align: center;
+    margin-bottom: 35px;
+    box-shadow: 0px 6px 30px rgba(0,0,0,0.4);
+}}
 
 
 /* Main Title */
-.main-title {
-    font-size: 52px;
+.hero-title {{
+    font-size: 58px;
     font-weight: bold;
     color: #F8E7D2;
-    text-align: center;
-    margin-bottom: 10px;
-}
+    margin-bottom: 15px;
+}}
 
 
 /* Subtitle */
-.sub-title {
+.hero-subtitle {{
     font-size: 24px;
-    color: #D7B899;
-    text-align: center;
-    margin-bottom: 40px;
-}
+    color: #F3D7B6;
+}}
 
 
-/* Glass Card Effect */
-.glass-card {
+/* Glass Cards */
+.glass-card {{
     background: rgba(255,255,255,0.05);
     padding: 25px;
     border-radius: 20px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0px 4px 30px rgba(0,0,0,0.3);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0px 4px 25px rgba(0,0,0,0.25);
     margin-bottom: 25px;
-}
+}}
 
 
-/* Dashboard Section Heading */
-.section-title {
-    font-size: 30px;
-    color: #F8E7D2;
-    margin-bottom: 15px;
+/* Section Titles */
+.section-title {{
+    font-size: 32px;
     font-weight: bold;
-}
+    color: #F8E7D2;
+    margin-bottom: 20px;
+}}
 
 
 /* Module Cards */
-.module-card {
-    background-color: rgba(255,255,255,0.04);
-    padding: 18px;
-    border-radius: 15px;
-    margin-bottom: 15px;
+.module-card {{
+    background: rgba(255,255,255,0.04);
+    padding: 22px;
+    border-radius: 18px;
+    margin-bottom: 18px;
     border-left: 5px solid #C08B5C;
     transition: 0.3s ease;
-}
+}}
 
-.module-card:hover {
-    transform: scale(1.02);
-    background-color: rgba(255,255,255,0.08);
-}
+.module-card:hover {{
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.08);
+}}
 
 
 /* Footer */
-.footer {
+.footer {{
     text-align: center;
-    color: #C7B299;
+    color: #D7B899;
     margin-top: 40px;
     font-size: 15px;
-}
+}}
 
 </style>
 """, unsafe_allow_html=True)
 
 
-# ======================================
-# HEADER SECTION
-# ======================================
+# =====================================
+# HERO SECTION
+# =====================================
 
-st.markdown(
-    """
-    <div class="main-title">
-        ☕ Afficionado Coffee Roasters
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown(f"""
+<div class="hero-section">
 
-st.markdown(
-    """
-    <div class="sub-title">
-        Product Optimization & Revenue Contribution Analysis
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+<div class="hero-title">
+☕ Afficionado Coffee Roasters
+</div>
+
+<div class="hero-subtitle">
+Product Optimization & Revenue Contribution Analysis
+</div>
+
+</div>
+""", unsafe_allow_html=True)
 
 
-# ======================================
+# =====================================
 # PROJECT OVERVIEW
-# ======================================
+# =====================================
 
 st.markdown('<div class="glass-card">', unsafe_allow_html=True)
 
-st.markdown(
-    """
-    <div class="section-title">
-        📌 Project Overview
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<div class="section-title">
+📌 Project Overview
+</div>
+""", unsafe_allow_html=True)
 
 st.markdown("""
 This analytics dashboard helps Afficionado Coffee Roasters identify:
@@ -162,18 +184,15 @@ for improving operational efficiency and maximizing profitability.
 st.markdown('</div>', unsafe_allow_html=True)
 
 
-# ======================================
+# =====================================
 # DASHBOARD MODULES
-# ======================================
+# =====================================
 
-st.markdown(
-    """
-    <div class="section-title">
-        📊 Dashboard Modules
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<div class="section-title">
+📊 Dashboard Modules
+</div>
+""", unsafe_allow_html=True)
 
 modules = [
     ("📈 Executive Overview",
@@ -204,15 +223,12 @@ for title, desc in modules:
     )
 
 
-# ======================================
+# =====================================
 # FOOTER
-# ======================================
+# =====================================
 
-st.markdown(
-    """
-    <div class="footer">
-        Developed using Streamlit | Data Analytics Project
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<div class="footer">
+Developed using Streamlit | Data Analytics Project
+</div>
+""", unsafe_allow_html=True)
