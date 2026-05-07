@@ -1,68 +1,152 @@
-
 import streamlit as st
 
 
-# =========================
+# ======================================
 # PAGE CONFIGURATION
-# =========================
+# ======================================
 
 st.set_page_config(
     page_title="Afficionado Coffee Roasters",
     page_icon="☕",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
 
-# =========================
-# CUSTOM STYLING
-# =========================
+# ======================================
+# CUSTOM CSS STYLING
+# ======================================
 
 st.markdown("""
 <style>
 
-.main {
-    background-color: #F8F5F2;
+/* Main Background */
+.stApp {
+    background: linear-gradient(to right, #1B120D, #2B1D17);
+    color: #F5F5F5;
 }
 
-h1, h2, h3 {
-    color: #3E2723;
-    font-family: 'Arial';
+
+/* Sidebar Styling */
+section[data-testid="stSidebar"] {
+    background-color: #140F0C;
+    border-right: 1px solid #3E2C23;
 }
 
-.stMetric {
-    background-color: white;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
+
+/* Sidebar Text */
+section[data-testid="stSidebar"] * {
+    color: #F5F5F5 !important;
 }
 
-.sidebar .sidebar-content {
-    background-color: #EFE7DD;
+
+/* Main Title */
+.main-title {
+    font-size: 52px;
+    font-weight: bold;
+    color: #F8E7D2;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+/* Subtitle */
+.sub-title {
+    font-size: 24px;
+    color: #D7B899;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+
+/* Glass Card Effect */
+.glass-card {
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0px 4px 30px rgba(0,0,0,0.3);
+    margin-bottom: 25px;
+}
+
+
+/* Dashboard Section Heading */
+.section-title {
+    font-size: 30px;
+    color: #F8E7D2;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+
+/* Module Cards */
+.module-card {
+    background-color: rgba(255,255,255,0.04);
+    padding: 18px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    border-left: 5px solid #C08B5C;
+    transition: 0.3s ease;
+}
+
+.module-card:hover {
+    transform: scale(1.02);
+    background-color: rgba(255,255,255,0.08);
+}
+
+
+/* Footer */
+.footer {
+    text-align: center;
+    color: #C7B299;
+    margin-top: 40px;
+    font-size: 15px;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 
-# =========================
+# ======================================
 # HEADER SECTION
-# =========================
+# ======================================
 
-st.title("☕ Afficionado Coffee Roasters")
-st.subheader(
-    "Product Optimization & Revenue Contribution Analysis"
+st.markdown(
+    """
+    <div class="main-title">
+        ☕ Afficionado Coffee Roasters
+    </div>
+    """,
+    unsafe_allow_html=True
 )
 
-st.markdown("---")
+st.markdown(
+    """
+    <div class="sub-title">
+        Product Optimization & Revenue Contribution Analysis
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
-# =========================
-# PROJECT DESCRIPTION
-# =========================
+# ======================================
+# PROJECT OVERVIEW
+# ======================================
+
+st.markdown('<div class="glass-card">', unsafe_allow_html=True)
+
+st.markdown(
+    """
+    <div class="section-title">
+        📌 Project Overview
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 st.markdown("""
-### 📌 Project Overview
-
 This analytics dashboard helps Afficionado Coffee Roasters identify:
 
 - Best-selling and least-selling products
@@ -75,41 +159,60 @@ The dashboard supports data-driven business decisions
 for improving operational efficiency and maximizing profitability.
 """)
 
-
-# =========================
-# DASHBOARD NAVIGATION
-# =========================
-
-st.markdown("---")
-
-st.markdown("""
-## 📊 Dashboard Modules
-
-Use the sidebar to navigate through the analytics dashboards:
-
-### 1️⃣ Executive Overview
-Business KPIs and overall performance summary
-
-### 2️⃣ Product Performance
-Top-selling and least-selling product analysis
-
-### 3️⃣ Revenue Contribution
-Revenue share and profitability insights
-
-### 4️⃣ Category Analysis
-Category-level revenue and sales distribution
-
-### 5️⃣ Pareto Analysis
-80/20 revenue concentration and menu optimization
-""")
+st.markdown('</div>', unsafe_allow_html=True)
 
 
-# =========================
+# ======================================
+# DASHBOARD MODULES
+# ======================================
+
+st.markdown(
+    """
+    <div class="section-title">
+        📊 Dashboard Modules
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+modules = [
+    ("📈 Executive Overview",
+     "Business KPIs and overall performance summary"),
+
+    ("🛍️ Product Performance",
+     "Top-selling and least-selling product analysis"),
+
+    ("💰 Revenue Contribution",
+     "Revenue share and profitability insights"),
+
+    ("📦 Category Analysis",
+     "Category-level revenue and sales distribution"),
+
+    ("🎯 Pareto Analysis",
+     "80/20 revenue concentration and menu optimization")
+]
+
+for title, desc in modules:
+    st.markdown(
+        f"""
+        <div class="module-card">
+            <h3>{title}</h3>
+            <p>{desc}</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+# ======================================
 # FOOTER
-# =========================
+# ======================================
 
-st.markdown("---")
-
-st.caption(
-    "Developed using Streamlit | Data Analytics Project"
+st.markdown(
+    """
+    <div class="footer">
+        Developed using Streamlit | Data Analytics Project
+    </div>
+    """,
+    unsafe_allow_html=True
 )
