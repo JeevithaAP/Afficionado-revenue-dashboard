@@ -23,7 +23,7 @@ def get_base64(image_path):
         return base64.b64encode(img.read()).decode()
 
 
-banner = get_base64("images/coffee_banner.jpeg")
+banner = get_base64("images/coffee_banner.jpg")
 
 
 # =====================================
